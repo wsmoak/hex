@@ -65,8 +65,8 @@ defmodule Mix.Tasks.Hex.OwnerTest do
     Mix.Tasks.Hex.Owner.run(["add", package2, owner_email])
 
     Mix.Tasks.Hex.Owner.run(["packages"])
-    owner_package4_msg = "#{package1} - http://localhost:4043/packages/#{package1}"
-    owner_package5_msg = "#{package2} - http://localhost:4043/packages/#{package2}"
+    owner_package4_msg = "#{package1} - https://hex.pm/packages/#{package1}"
+    owner_package5_msg = "#{package2} - https://hex.pm/packages/#{package2}"
     assert_received {:mix_shell, :info, [^owner_package4_msg]}
     assert_received {:mix_shell, :info, [^owner_package5_msg]}
   end

@@ -101,12 +101,16 @@ defmodule Mix.Tasks.Hex.Owner do
     {:ok, username} = Keyword.fetch(config, :username)
     case Hex.API.User.get(username, auth) do
       {code, body, _headers} when code in 200..299 ->
-        Enum.each(body["owned_packages"], fn({name, url}) ->
-          Hex.Shell.info("#{name} - #{url}")
+        Enum.each(body["owned_packages"], fn({name, _url}) ->
+          Hex.Shell.info("#{name} - #{url(name)}")
         end)
       {code, body, _headers} ->
         Hex.Shell.error("Listing owned packages failed")
         Hex.Utils.print_error_result(code, body)
     end
+  end
+
+  defp url(name) do
+    "https://hex.pm/packages/#{name}"
   end
 end
